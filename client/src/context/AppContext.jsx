@@ -7,7 +7,8 @@ export const AppContext = createContext()
 
 export const AppContextProvider = (props) => {
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    // Normalize backend URL: remove any trailing slashes to avoid "//api" requests
+    const backendUrl = (import.meta.env.VITE_BACKEND_URL || '').replace(/\/+$/, '')
 
     const { user } = useUser()
     const { getToken } = useAuth()
