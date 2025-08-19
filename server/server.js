@@ -39,6 +39,12 @@ const PORT = process.env.PORT || 5000
 
 Sentry.setupExpressErrorHandler(app);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-})
+// On Vercel (@vercel/node), export the app instead of listening on a port
+const isVercel = !!process.env.VERCEL
+if (!isVercel) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  })
+}
+
+export default app
